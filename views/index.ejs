@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>To Do List</title>
+  </head>
+  <body>
+    <h1><%= date %></h1>
+    <ul>
+      <li>Complete Web Development Course</li>
+      <li>Start working on RF Design</li>
+      <li>Chat with friends over Google Duo</li>
+      <% for (var i = 0; i < items.length; i++) { %>
+        <li><%= items[i] %></li>
+      <% } %>
+    </ul>
+    <form class="" action="/" method="post">
+      <input type="text" name="nextItem">
+      <button type="submit" name="button">Add</button>
+    </form>
+  </body>
+</html>
