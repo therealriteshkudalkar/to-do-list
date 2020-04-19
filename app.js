@@ -3,10 +3,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 
-var items = [];
+var items = ["Buy Food", "Cook Food", "Eat Food"];
+var workItems = [];
 
 app.get("/", function(req, res) {
   const options = {
@@ -15,12 +17,26 @@ app.get("/", function(req, res) {
     day: "numeric"
   };
   const date = new Date().toLocaleString("en-us", options);
-  res.render("index", {date: date, items: items});
+  res.render("index", {appTitle: date, items: items});
 });
 
 app.post("/", function(req, res) {
-  items.push(req.body.nextItem);
-  res.redirect("/");
+  const item = req.body.nextItem;
+  if (req.body.button === "Work") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
+});
+
+app.get("/work", function(req, res) {
+  res.render("index", {appTitle: "Work List", items: workItems});
+});
+
+app.get("/about", function(req, res) {
+  res.render("about");
 });
 
 app.listen(3000, function() {
