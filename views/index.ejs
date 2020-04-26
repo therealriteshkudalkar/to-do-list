@@ -4,13 +4,14 @@
 </div>
 
 <div class="box">
-  
+
   <% items.forEach(function(item) { %>
   <form action="/delete" method="post">
     <div class="item">
-      <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()">
+      <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()"/>
       <p><%=item.itemName%></p>
     </div>
+    <input type="hidden" name="listName" value="<%= appTitle %>"></input>
   </form>
   <% }) %>
 
