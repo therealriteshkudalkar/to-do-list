@@ -4,6 +4,8 @@ const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
+mongoose.set('useFindAndModify', false);
+
 const app = express();
 app.use(bodyParser.urlencoded({
   extended: true
@@ -11,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
+mongoose.connect("mongodb+srv://admin-ritesh:@Ritesh720851@cluster0-rrd7o.mongodb.net/todolistDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -45,7 +47,7 @@ app.get("/", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      if (items.length === 0) {
+      if (!items) {
         Item.insertMany(defaultItems, function(err) {
           if (err) {
             console.log(err);
@@ -81,8 +83,10 @@ app.post("/", function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        list.items.push(newItem);
-        list.save();
+        if(list !== null) {
+          list.items.push(newItem);
+          list.save();
+        }
         res.redirect("/" + listName);
       }
     });
@@ -115,7 +119,6 @@ app.post("/delete", function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
         /*if(list != null) {
           for(var i = 0; i < list.items.length; i++) {
             if(list.items[i]._id == itemId) {
@@ -138,7 +141,7 @@ app.get("/:listName", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      if (list == null) {
+      if (!list) {
         const newList = new List({
           listName: listName,
           items: defaultItems
