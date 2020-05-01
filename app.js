@@ -1,8 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const date = require(__dirname + "/date.js");
 
 mongoose.set('useFindAndModify', false);
 
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-mongoose.connect("mongodb+srv://admin-ritesh:@Ritesh720851@cluster0-rrd7o.mongodb.net/todolistDB", {
+mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0-rrd7o.mongodb.net/todolistDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
