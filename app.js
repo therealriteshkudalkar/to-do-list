@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0-rrd7o.mongodb.net/todolistDB", {
+mongoose.connect("mongodb+srv://admin-ritesh:" + process.env.DB_PASS+ "@cluster0-rrd7o.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
