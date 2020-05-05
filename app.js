@@ -33,11 +33,11 @@ const listSchema = new mongoose.Schema({
 const List = mongoose.model("List", listSchema);
 
 const item1 = new Item({
-  itemName: "Welcome to your To-do-list"
+  itemName: "Press on 'New Item' 👇🏻 to type"
 });
 
 const item2 = new Item({
-  itemName: "Hit the ➕ button to add an item to the list"
+  itemName: "Hit the ➕ button to add that item to the list"
 });
 
 const item3 = new Item({
