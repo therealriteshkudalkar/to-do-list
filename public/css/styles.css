@@ -74,14 +74,14 @@ button {
   -moz-appearance: none;
   appearance: none;
   display: inline-block;
-  min-height: 50px;
+  height: 50px;
   width: 50px;
+  border: none;
   border-radius: 50%;
-  border-color: transparent;
   background-color: #A683E3;
   color: #fff;
   font-size: 30px;
-  border-width: 0;
+  text-align: center;
 }
 
 input[type="text"] {
