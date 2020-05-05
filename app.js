@@ -14,10 +14,13 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-mongoose.connect("mongodb+srv://admin-ritesh:" + process.env.DB_PASS+ "@cluster0-rrd7o.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://admin-ritesh:" + process.env.DB_PASS+ "@cluster0-rrd7o.mongodb.net/todolistDB?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}).catch(function(err) {
+  console.log(err);
 });
+
 const itemSchema = new mongoose.Schema({
   itemName: String
 });
@@ -64,6 +67,8 @@ app.get("/", function(req, res) {
         });
       }
     }
+  }).catch(function(err) {
+    console.log("The find query failed", err);
   });
 });
 
@@ -156,6 +161,8 @@ app.get("/:listName", function(req, res) {
         });
       }
     }
+  }).catch(function(err) {
+    console.log("The find One query failed", err);
   });
 });
 
