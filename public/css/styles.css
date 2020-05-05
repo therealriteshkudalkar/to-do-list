@@ -73,7 +73,7 @@ button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  display: inline-block;
+  display: block;
   height: 50px;
   width: 50px;
   border: none;
@@ -81,6 +81,7 @@ button {
   background-color: #A683E3;
   color: #fff;
   font-size: 30px;
+  padding: 0px;
   text-align: center;
 }
 
