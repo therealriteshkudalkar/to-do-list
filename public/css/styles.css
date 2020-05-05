@@ -70,6 +70,9 @@ form.item {
 }
 
 button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: inline-block;
   min-height: 50px;
   width: 50px;
