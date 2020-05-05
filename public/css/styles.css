@@ -92,6 +92,7 @@ button {
   padding: 0;
   text-align: center;
   line-height: 50px;
+  vertical-align: middle;
 }
 
 input[type="text"] {
