@@ -89,11 +89,100 @@ app.post("/", function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        if(list !== null) {
+        if (list !== null) {
           list.items.push(newItem);
           list.save();
         }
         res.redirect("/" + listName);
+      }
+    });
+  }
+});
+
+app.put("/", function(req, res) {
+  const itemName = req.body.itemName;
+  const listName = req.body.listName;
+  const newItem = new Item({
+    itemName: itemName
+  });
+
+  if (listName === date.getDate()) {
+    newItem.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        Item.find(function(err, items) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send({
+              listName: listName,
+              listItems: items
+            });
+          }
+        });
+      }
+    });
+  } else {
+    List.findOne({
+      listName: _.capitalize(listName)
+    }, function(err, list) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (list !== null) {
+          list.items.push(newItem);
+          list.save();
+          res.send({listName: listName, listItems: list.items});
+        }
+      }
+    });
+  }
+});
+
+app.delete("/", function(req, res) {
+  const itemId = req.body.itemId;
+  const listName = req.body.listName;
+  if (listName === date.getDate()) {
+    Item.deleteOne({
+      _id: itemId
+    }, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        Item.find(function(err, items) {
+          res.send({
+            listName: listName,
+            listItems: items
+          });
+        });
+      }
+    });
+  } else {
+    List.findOneAndUpdate({
+      listName: _.capitalize(listName)
+    }, {
+      $pull: {
+        items: {
+          _id: itemId
+        }
+      }
+    }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        List.findOne({
+          listName: _.capitalize(listName)
+        }, function(err, list) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send({
+              listName: listName,
+              listItems: list.items
+            });
+          }
+        });
       }
     });
   }
@@ -125,14 +214,7 @@ app.post("/delete", function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        /*if(list != null) {
-          for(var i = 0; i < list.items.length; i++) {
-            if(list.items[i]._id == itemId) {
-              list.items.splice(i, 1);
-              list.save();
-              break;
-            }
-          }*/
+        console.log(result);
       }
       res.redirect("/" + listName);
     });
@@ -170,8 +252,8 @@ app.get("/about", function(req, res) {
   res.render("about");
 });
 var port = process.env.PORT;
-if(port == null || port == "") {
-  port=3000;
+if (port == null || port == "") {
+  port = 3000;
 }
 app.listen(port, function() {
   console.log("The server is now listening on port 3000.");

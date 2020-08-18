@@ -8,15 +8,15 @@
   <% items.forEach(function(item) { %>
   <form action="/delete" method="post">
     <div class="item">
-      <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()"/>
+      <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange=""/>
       <p><%=item.itemName%></p>
     </div>
     <input type="hidden" name="listName" value="<%= appTitle %>"></input>
   </form>
   <% }) %>
 
-  <form class="item inputText" action="/" method="post">
-    <input type="text" name="nextItem" placeholder="New Item" autocomplete="off">
+  <form onsubmit="return false;" class="item inputText" action="/" method="post">
+    <input type="text" name="nextItem" placeholder="New Item" autocomplete="off"/>
     <button type="submit" name="button" value="<%= appTitle %>">+</button>
   </form>
 </div>
