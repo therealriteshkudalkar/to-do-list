@@ -6,8 +6,8 @@ $(document).ready(function() {
     $.ajax({
       url: "/",
       method: "put",
-      contentType: "application/x-www-form-urlencoded",
-      data: {itemName: itemName, listName: listName},
+      contentType: "application/json",
+      data: JSON.stringify({itemName: itemName, listName: listName}),
       success: function(response) {
         var container = $(".box")[1];
         container.innerHTML = '';
@@ -36,8 +36,8 @@ $(document).ready(function() {
     $.ajax({
       url: "/",
       method: "delete",
-      contentType: "application/x-www-form-urlencoded",
-      data: {itemId: itemId, listName: listName},
+      contentType: "application/json",
+      data: JSON.stringify({itemId: itemId, listName: listName}),
       success: function(response) {
         var container = $(".box")[1];
         container.innerHTML = '';

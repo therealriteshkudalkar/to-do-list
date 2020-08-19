@@ -8,9 +8,7 @@ const date = require(__dirname + "/date.js");
 mongoose.set('useFindAndModify', false);
 
 const app = express();
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.json());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
@@ -248,9 +246,10 @@ app.get("/:listName", function(req, res) {
   });
 });
 
-app.get("/about", function(req, res) {
+app.get("/about/app", function(req, res) {
   res.render("about");
 });
+
 var port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;
