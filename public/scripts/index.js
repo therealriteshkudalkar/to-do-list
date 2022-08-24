@@ -13,7 +13,7 @@ $(document).ready(function() {
         container.innerHTML = '';
         var html = "";
         response.listItems.forEach(function(item) {
-          html += '<form action="/" method="delete">';
+          html += '<form onsubmit="return false;">';
             html += '<div class="item">';
               html += '<input type="checkbox" name="checkbox" value="' + item._id + '"/>';
               html += '<p>' + item.itemName + '</p>';
@@ -23,7 +23,7 @@ $(document).ready(function() {
         });
         html += '<form onsubmit="return false;" class="item inputText">';
           html += '<input type="text" name="nextItem" placeholder="New Item" autocomplete="off">';
-          html += '<button name="button" value="' + listName + '">+</button>';
+          html += '<button name="button" value="' + listName + '"><span class="material-icons">add</span></button>';
         html += '</form>';
         container.innerHTML = html;
       }
@@ -43,7 +43,7 @@ $(document).ready(function() {
         container.innerHTML = '';
         var html = "";
         response.listItems.forEach(function(item) {
-          html += '<form action="/" method="delete">';
+          html += '<form onsubmit="return false;">';
             html += '<div class="item">';
               html += '<input type="checkbox" name="checkbox" value="' + item._id + '"/>';
               html += '<p>' + item.itemName + '</p>';
@@ -53,7 +53,7 @@ $(document).ready(function() {
         });
         html += '<form onsubmit="return false;" class="item inputText">';
           html += '<input type="text" name="nextItem" placeholder="New Item" autocomplete="off">';
-          html += '<button name="button" value="' + listName + '">+</button>';
+          html += '<button name="button" value="' + listName + '"><span class="material-icons">add</span></button>';
         html += '</form>';
         container.innerHTML = html;
       }

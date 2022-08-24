@@ -70,33 +70,6 @@ app.get("/", function(req, res) {
   });
 });
 
-app.post("/", function(req, res) {
-  const listName = req.body.button;
-  const item = req.body.nextItem;
-  const newItem = new Item({
-    itemName: item
-  });
-
-  if (listName === date.getDate()) {
-    newItem.save();
-    res.redirect("/");
-  } else {
-    List.findOne({
-      listName: _.capitalize(listName)
-    }, function(err, list) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (list !== null) {
-          list.items.push(newItem);
-          list.save();
-        }
-        res.redirect("/" + listName);
-      }
-    });
-  }
-});
-
 app.put("/", function(req, res) {
   const itemName = req.body.itemName;
   const listName = req.body.listName;
@@ -186,39 +159,6 @@ app.delete("/", function(req, res) {
   }
 });
 
-app.post("/delete", function(req, res) {
-  const itemId = req.body.checkbox;
-  const listName = req.body.listName;
-  if (listName === date.getDate()) {
-    Item.deleteOne({
-      _id: itemId
-    }, function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect("/");
-      }
-    });
-  } else {
-    List.findOneAndUpdate({
-      listName: _.capitalize(listName)
-    }, {
-      $pull: {
-        items: {
-          _id: itemId
-        }
-      }
-    }, function(err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-      }
-      res.redirect("/" + listName);
-    });
-  }
-});
-
 app.get("/:listName", function(req, res) {
   const listName = _.capitalize(req.params.listName);
   List.findOne({
@@ -243,6 +183,31 @@ app.get("/:listName", function(req, res) {
     }
   }).catch(function(err) {
     console.log("The find One query failed", err);
+  });
+});
+
+app.get("/mobile/list/", function(req, res) {
+  Item.find(function(err, items) {
+    if (err) {
+      console.log(err);
+      res.send({successful: false});
+    } else {
+      if (items) {
+        res.send({successful: true, listItems: {listName: date.getDate() , items: items}});
+      }
+    }
+  });
+});
+
+app.get("/mobile/list/:listName", function(req, res) {
+  const listName = _.capitalize(req.params.listName);
+  List.findOne({listName: listName}, function(err, list) {
+    if(err) {
+      console.log(err);
+      res.send({successful: false});
+    } else {
+      res.send({successful: true, listItems: list});
+    }
   });
 });
 

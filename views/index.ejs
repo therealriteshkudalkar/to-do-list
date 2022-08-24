@@ -4,9 +4,8 @@
 </div>
 
 <div class="box">
-
   <% items.forEach(function(item) { %>
-  <form action="/delete" method="post">
+  <form onsubmit="return false;">
     <div class="item">
       <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange=""/>
       <p><%=item.itemName%></p>
@@ -15,9 +14,11 @@
   </form>
   <% }) %>
 
-  <form onsubmit="return false;" class="item inputText" action="/" method="post">
+  <form onsubmit="return false;" class="item inputText">
     <input type="text" name="nextItem" placeholder="New Item" autocomplete="off"/>
-    <button type="submit" name="button" value="<%= appTitle %>">+</button>
+    <button type="submit" name="button" value="<%= appTitle %>">
+      <span class="material-icons">add</span>
+    </button>
   </form>
 </div>
 <%- include("footer"); -%>
