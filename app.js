@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const date = require(__dirname + "/date.js");
 
-mongoose.set('useFindAndModify', false);
-
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static("public"));
